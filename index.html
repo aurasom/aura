@@ -47,16 +47,11 @@
     </div>
 
     <script>
-        function abrirRadio() {
-    // Tenta abrir qualquer app que se identifique como rádio FM
-    window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;pkg=com.motorola.fmradio;end";
-    
-    // Se não abrir em 1 segundo, avisa o usuário
-    setTimeout(function() {
-        alert("Por favor, abra o aplicativo 'Rádio FM' manualmente no seu menu de aplicativos.");
-    }, 1500);
+     function abrirRadio() {
+    // Este comando (Intent) funciona melhor dentro de um APK
+    var intentUrl = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;pkg=com.motorola.fmradio;end";
+    window.location.href = intentUrl;
 }
-
         // Função para mudar canal via QR Code ou botões se você quiser
         function mudarCanal(f) {
             document.getElementById('display').innerText = f;
