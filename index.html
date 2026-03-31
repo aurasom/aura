@@ -3,92 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RECEPTOR PALESTRA VIVA</title>
+    <title>RECEPTOR OFICIAL - SEU NOME</title>
     <style>
-        :root {
-            --bg: #121212;
-            --panel: #2a2a2a;
-            --led: #ff9500; /* Cor de rádio clássico */
-        }
-        body { background: var(--bg); color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        body { background: #121212; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding: 20px; }
         
-        .radio-box {
-            background: var(--panel);
-            width: 90%;
-            max-width: 350px;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid #444;
-        }
-
-        .visor {
-            background: #000;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px inset #333;
-        }
-
-        .freq-display { font-size: 3rem; font-weight: bold; color: var(--led); text-shadow: 0 0 10px var(--led); margin: 0; }
-        .unit { color: var(--led); font-size: 1rem; opacity: 0.8; }
-
-        .instrucao {
-            background: #333;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            color: #bbb;
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .card { background: #1e1e1e; border-radius: 20px; padding: 25px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
-        .btn {
-            background: #444;
-            border: none;
-            color: white;
-            padding: 15px 0;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #00ff41; letter-spacing: 2px; margin-bottom: 20px; }
+        
+        .status-badge { background: #222; padding: 10px; border-radius: 50px; display: inline-block; font-size: 0.8rem; border: 1px solid #444; margin-bottom: 20px; }
+        .dot { height: 10px; width: 10px; background-color: #00ff41; border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
 
-        .btn:active { background: var(--led); color: black; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .footer-info { margin-top: 20px; font-size: 0.7rem; color: #666; text-transform: uppercase; }
+        .frequencia-master { font-size: 4rem; font-weight: bold; margin: 10px 0; color: #fff; }
+        
+        .instrucoes-passo { text-align: left; background: #252525; padding: 15px; border-radius: 10px; margin: 20px 0; }
+        .passo { margin-bottom: 10px; font-size: 0.9rem; display: flex; align-items: center; }
+        .numero { background: #00ff41; color: black; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; justify-content: center; align-items: center; margin-right: 10px; font-weight: bold; flex-shrink: 0; }
+
+        .btn-abrir { background: #00ff41; color: black; border: none; padding: 18px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="radio-box">
-    <div class="instrucao">
-        ⚠️ <b>IMPORTANTE:</b> Conecte seu fone de ouvido para usar como antena no seu app de Rádio FM nativo.
-    </div>
-
-    <div class="visor">
-        <p class="freq-display" id="f">---</p>
-        <span class="unit">MHz - SINAL FM</span>
-    </div>
-
-    <div class="grid">
-        <button class="btn" onclick="set('95.7', 'SALA A')">CH 1</button>
-        <button class="btn" onclick="set('98.3', 'SALA B')">CH 2</button>
-        <button class="btn" onclick="set('101.5', 'SALA C')">CH 3</button>
+    <div class="card">
+        <div class="logo">SUA MARCA</div>
+        
+        <div class="status-badge">
+            <span class="dot"></span> TRANSMISSÃO AO VIVO
         </div>
 
-    <div class="footer-info">
-        Receptor Digital de Apoio | Palestra Viva
+        <div class="frequencia-master" id="display">95.7</div>
+        <p style="color: #888; margin-top: -10px;">MEGAHERTZ (MHz)</p>
+
+        <div class="instrucoes-passo">
+            <div class="passo"><span class="numero">1</span> Conecte o fone (antena)</div>
+            <div class="passo"><span class="numero">2</span> Clique no botão abaixo</div>
+            <div class="passo"><span class="numero">3</span> Sintonize em <b id="f-bold">95.7</b> no App de Rádio</div>
+        </div>
+
+        <button class="btn-abrir" onclick="abrirRadio()">ABRIR RÁDIO NATIVO</button>
     </div>
-</div>
 
-<script>
-    function set(freq, nome) {
-        document.getElementById('f').innerText = freq;
-        // Vibração curta para dar sensação de clique físico
-        if (navigator.vibrate) navigator.vibrate(50);
-    }
-</script>
+    <script>
+        function abrirRadio() {
+            // Tenta disparar o "Intent" do Android para abrir o rádio
+            // Nota: Isso funciona em muitos Motorolas e aparelhos com rádio padrão
+            window.location.href = "intent://radio/#Intent;scheme=android.intent.action.MAIN;package=com.motorola.fmradio;end";
+            
+            // Se o de cima falhar (não for Motorola), ele tenta o rádio genérico
+            setTimeout(function() {
+                window.location.href = "intent://radio/#Intent;scheme=android.intent.action.MAIN;category=android.intent.category.APP_MUSIC;end";
+            }, 500);
+        }
 
+        // Função para mudar canal via QR Code ou botões se você quiser
+        function mudarCanal(f) {
+            document.getElementById('display').innerText = f;
+            document.getElementById('f-bold').innerText = f;
+        }
+    </script>
 </body>
 </html>
