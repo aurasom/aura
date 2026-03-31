@@ -48,15 +48,14 @@
 
     <script>
         function abrirRadio() {
-            // Tenta disparar o "Intent" do Android para abrir o rádio
-            // Nota: Isso funciona em muitos Motorolas e aparelhos com rádio padrão
-            window.location.href = "intent://radio/#Intent;scheme=android.intent.action.MAIN;package=com.motorola.fmradio;end";
-            
-            // Se o de cima falhar (não for Motorola), ele tenta o rádio genérico
-            setTimeout(function() {
-                window.location.href = "intent://radio/#Intent;scheme=android.intent.action.MAIN;category=android.intent.category.APP_MUSIC;end";
-            }, 500);
-        }
+    // Tenta abrir qualquer app que se identifique como rádio FM
+    window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;pkg=com.motorola.fmradio;end";
+    
+    // Se não abrir em 1 segundo, avisa o usuário
+    setTimeout(function() {
+        alert("Por favor, abra o aplicativo 'Rádio FM' manualmente no seu menu de aplicativos.");
+    }, 1500);
+}
 
         // Função para mudar canal via QR Code ou botões se você quiser
         function mudarCanal(f) {
