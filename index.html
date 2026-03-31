@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio FM Digital</title>
-    <style>
+<title>PALESTRA da Vale</title>
+<meta name="theme-color" content="#1a1a1a">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">    <style>
         :root {
             --bg-color: #1a1a1a;
             --panel-color: #333;
@@ -98,6 +99,32 @@
             <h2>FM RECEIVER</h2>
             <p id="freq">94.7</p>
         </div>
+        <div id="overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#1a1a1a; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:100;">
+    <h2 style="color:white; margin-bottom:20px;">Transmissão ao Vivo</h2>
+    <button onclick="iniciarApp()" style="padding:20px 40px; font-size:20px; border-radius:50px; border:none; background:#00ff41; color:black; font-weight:bold; cursor:pointer;">
+        CONECTAR ÁUDIO
+    </button>
+</div>
+
+<script>
+function iniciarApp() {
+    // 1. Tenta colocar em tela cheia para sumir a URL
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    }
+
+    // 2. Esconde a tela de entrada
+    document.getElementById('overlay').style.display = 'none';
+    
+    // 3. Aqui você iniciaria o áudio da rádio
+    console.log("Áudio conectado!");
+}
+</script>
+
+        
 
         <div class="grid-buttons">
             <button class="btn-ch" onclick="setFreq('88.1', 1)">CH 1</button>
