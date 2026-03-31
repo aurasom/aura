@@ -82,6 +82,14 @@
 
         .label-vol { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
     </style>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a1a1a">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
 </head>
 <body>
 
